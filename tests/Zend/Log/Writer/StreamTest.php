@@ -20,6 +20,8 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,8 +29,8 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Log
  */
+#[Group('Zend_Log')]
 class Zend_Log_Writer_StreamTest extends PHPUnit\Framework\TestCase
 {
     public function testConstructorThrowsWhenResourceIsNotStream()
@@ -46,18 +48,14 @@ class Zend_Log_Writer_StreamTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testConstructorWithValidStream()
     {
         $stream = fopen('php://memory', 'w+');
         new Zend_Log_Writer_Stream($stream);
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testConstructorWithValidUrl()
     {
         new Zend_Log_Writer_Stream('php://memory');

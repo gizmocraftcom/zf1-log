@@ -20,6 +20,8 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,14 +29,12 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Log
  */
+#[Group('Zend_Log')]
 class Zend_Log_Writer_ZendMonitorTest extends PHPUnit\Framework\TestCase
 {
-    /**
-     * @group ZF-10081
-     * @doesNotPerformAssertions
-     */
+    #[Group('ZF-10081')]
+    #[DoesNotPerformAssertions]
     public function testWrite()
     {
         $writer = new Zend_Log_Writer_ZendMonitor();

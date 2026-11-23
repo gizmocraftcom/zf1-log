@@ -20,6 +20,8 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,8 +29,8 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Log
  */
+#[Group('Zend_Log')]
 class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
 {
     protected $writer;
@@ -200,9 +202,7 @@ class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($value, $event[$field]);
     }
 
-    /**
-     * @group ZF-8491
-     */
+    #[Group('ZF-8491')]
     public function testLogAcceptsExtrasParameterAsArrayAndPushesIntoEvent()
     {
         $logger = new Zend_Log($mock = new Zend_Log_Writer_Mock);
@@ -212,9 +212,7 @@ class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('nonesuch', $event['content']);
     }
 
-    /**
-     * @group ZF-8491
-     */
+    #[Group('ZF-8491')]
     public function testLogNumericKeysInExtrasArrayArePassedToInfoKeyOfEvent()
     {
         $logger = new Zend_Log($mock = new Zend_Log_Writer_Mock);
@@ -225,9 +223,7 @@ class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
         $this->assertContains('bar', $event['info']);
     }
 
-    /**
-     * @group ZF-8491
-     */
+    #[Group('ZF-8491')]
     public function testLogAcceptsExtrasParameterAsScalarAndAddsAsInfoKeyToEvent()
     {
         $logger = new Zend_Log($mock = new Zend_Log_Writer_Mock);
@@ -284,9 +280,7 @@ class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
         $this->assertInstanceOf(Zend_Log::class, $logger);
     }
 
-    /**
-     * @group ZF-9192
-     */
+    #[Group('ZF-9192')]
     public function testUsingWithErrorHandler()
     {
         $writer = new Zend_Log_Writer_Mock();
@@ -322,10 +316,10 @@ class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
     }
 
     /**
-     * @group ZF-9192
      * Used by testUsingWithErrorHandler -
      * verifies that the data written to the original logger is the same as the data written in Zend_Log
      */
+    #[Group('ZF-9192')]
     public function verifyHandlerData($errno, $errstr, $errfile, $errline, $errcontext)
     {
         if ($this->expectingLogging) {
@@ -340,9 +334,7 @@ class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group ZF-9870
-     */
+    #[Group('ZF-9870')]
     public function testSetAndGetTimestampFormat()
     {
         $logger = new Zend_Log($this->writer);
@@ -351,9 +343,7 @@ class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('Y-m-d H:i:s', $logger->getTimestampFormat());
     }
 
-    /**
-     * @group ZF-9870
-     */
+    #[Group('ZF-9870')]
     public function testLogWritesWithModifiedTimestampFormat()
     {
         $logger = new Zend_Log($this->writer);
@@ -364,9 +354,7 @@ class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(date('Y-m-d'), substr($message, 0, 10));
     }
 
-    /**
-     * @group ZF-9955
-     */
+    #[Group('ZF-9955')]
     public function testExceptionConstructWriterFromConfig()
     {
         try {
@@ -382,9 +370,7 @@ class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group ZF-9956
-     */
+    #[Group('ZF-9956')]
     public function testExceptionConstructFilterFromConfig()
     {
         try {
@@ -400,9 +386,7 @@ class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group ZF-8953
-     */
+    #[Group('ZF-8953')]
     public function testFluentInterface()
     {
         $logger   = new Zend_Log();
@@ -414,9 +398,7 @@ class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
         $this->assertInstanceOf(Zend_Log::class, $instance);
     }
 
-    /**
-     * @group ZF-10170
-     */
+    #[Group('ZF-10170')]
     public function testPriorityDuplicates()
     {
         $logger = new Zend_Log();
@@ -443,10 +425,8 @@ class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
         $this->assertArrayNotHasKey(1, $mock->events);
     }
 
-    /**
-     * @group ZF-9176
-     * @doesNotPerformAssertions
-     */
+    #[Group('ZF-9176')]
+    #[DoesNotPerformAssertions]
     public function testLogConstructFromConfigFormatter()
     {
         $config = array(
@@ -465,10 +445,8 @@ class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
         $logger->log('custom message', Zend_Log::INFO);
     }
 
-    /**
-     * @group ZF-9176
-     * @doesNotPerformAssertions
-     */
+    #[Group('ZF-9176')]
+    #[DoesNotPerformAssertions]
     public function testLogConstructFromConfigCustomFormatter()
     {
         $config = array(
@@ -485,9 +463,7 @@ class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
         $logger->log('custom message', Zend_Log::INFO);
     }
 
-    /**
-     * @group ZF-10990
-     */
+    #[Group('ZF-10990')]
     public function testFactoryShouldSetTimestampFormat()
     {
         $config = array(
@@ -501,9 +477,7 @@ class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('Y-m-d', $logger->getTimestampFormat());
     }
 
-    /**
-     * @group ZF-10990
-     */
+    #[Group('ZF-10990')]
     public function testFactoryShouldKeepDefaultTimestampFormat()
     {
         $config = array(
@@ -517,9 +491,7 @@ class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('c', $logger->getTimestampFormat());
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testFactorySupportsPHP53Namespaces()
     {
         // preload namespaced class from custom path
@@ -540,9 +512,7 @@ class Zend_Log_LogTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group #85
-     */
+    #[Group('#85')]
     public function testZendLogCanBeExtendedWhenUsingFactory()
     {
         $writer = new Zend_Log_Writer_Null();
@@ -600,8 +570,8 @@ class Custom_Formatter_Mock extends Zend_Log_Formatter_Abstract
 /**
  * Helper classes for testZendLogCanBeExtendedWhenUsingFactory()
  *
- * @group #85
  */
+#[Group('#85')]
 class ZLTest_My_Log extends Zend_Log
 {
 }

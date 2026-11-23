@@ -20,6 +20,7 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,8 +28,8 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Log
  */
+#[Group('Zend_Log')]
 class Zend_Log_Formatter_XmlTest extends PHPUnit\Framework\TestCase
 {
     public function testDefaultFormat()
@@ -64,10 +65,8 @@ class Zend_Log_Formatter_XmlTest extends PHPUnit\Framework\TestCase
         $this->assertInstanceOf(SimpleXMLElement::class, $sxml, 'Formatted XML is invalid');
     }
 
-    /**
-     * @group ZF-2062
-     * @group ZF-4190
-     */
+    #[Group('ZF-2062')]
+    #[Group('ZF-4190')]
     public function testHtmlSpecialCharsInMessageGetEscapedForValidXml()
     {
         $f    = new Zend_Log_Formatter_Xml();
@@ -77,10 +76,8 @@ class Zend_Log_Formatter_XmlTest extends PHPUnit\Framework\TestCase
         $this->assertTrue(substr_count($line, '&amp;') == 2);
     }
 
-    /**
-     * @group ZF-2062
-     * @group ZF-4190
-     */
+    #[Group('ZF-2062')]
+    #[Group('ZF-4190')]
     public function testFixingBrokenCharsSoXmlIsValid()
     {
         $f    = new Zend_Log_Formatter_Xml();
@@ -110,9 +107,7 @@ class Zend_Log_Formatter_XmlTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('UTF-8', $formatter->getEncoding());
     }
 
-    /**
-     * @group ZF-9176
-     */
+    #[Group('ZF-9176')]
     public function testFactory()
     {
         $options = array(
@@ -126,9 +121,7 @@ class Zend_Log_Formatter_XmlTest extends PHPUnit\Framework\TestCase
         $this->assertInstanceOf(Zend_Log_Formatter_Xml::class, $formatter);
     }
 
-    /**
-     * @group ZF-11161
-     */
+    #[Group('ZF-11161')]
     public function testNonScalarValuesAreExcludedFromFormattedString()
     {
         $options = array(
@@ -147,9 +140,7 @@ class Zend_Log_Formatter_XmlTest extends PHPUnit\Framework\TestCase
         $this->assertStringContainsString($expected, $output);
     }
 
-    /**
-     * @group ZF-11161
-     */
+    #[Group('ZF-11161')]
     public function testObjectsWithStringSerializationAreIncludedInFormattedString()
     {
         $options = array(

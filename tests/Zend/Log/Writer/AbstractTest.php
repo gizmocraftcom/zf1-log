@@ -20,6 +20,7 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,8 +28,8 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Log
  */
+#[Group('Zend_Log')]
 class Zend_Log_Writer_AbstractTest extends PHPUnit\Framework\TestCase
 {
     /**
@@ -41,9 +42,7 @@ class Zend_Log_Writer_AbstractTest extends PHPUnit\Framework\TestCase
         $this->_writer = new Zend_Log_Writer_AbstractTest_Concrete();
     }
 
-    /**
-     * @group ZF-6085
-     */
+    #[Group('ZF-6085')]
     public function testSetFormatter()
     {
         if (version_compare(phpversion(), '7', '>=')) {
@@ -63,9 +62,7 @@ class Zend_Log_Writer_AbstractTest extends PHPUnit\Framework\TestCase
         $this->_writer->addFilter(new StdClass());
     }
 
-    /**
-     * @group ZF-8953
-     */
+    #[Group('ZF-8953')]
     public function testFluentInterface()
     {
         $instance = $this->_writer->addFilter(1)

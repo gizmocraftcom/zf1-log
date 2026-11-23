@@ -20,6 +20,8 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,13 +29,11 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Log
  */
+#[Group('Zend_Log')]
 class Zend_Log_Writer_SyslogTest extends PHPUnit\Framework\TestCase
 {
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testWrite()
     {
         $fields = array('message' => 'foo', 'priority' => LOG_NOTICE);
@@ -52,9 +52,7 @@ class Zend_Log_Writer_SyslogTest extends PHPUnit\Framework\TestCase
         $this->assertInstanceOf(Zend_Log_Writer_Syslog::class, $writer);
     }
 
-    /**
-     * @group ZF-7603
-     */
+    #[Group('ZF-7603')]
     public function testThrowExceptionValueNotPresentInFacilities()
     {
         try {
@@ -66,9 +64,7 @@ class Zend_Log_Writer_SyslogTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group ZF-7603
-     */
+    #[Group('ZF-7603')]
     public function testThrowExceptionIfFacilityInvalidInWindows()
     {
         if ('WIN' != strtoupper(substr(PHP_OS, 0, 3))) {
@@ -83,9 +79,7 @@ class Zend_Log_Writer_SyslogTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @group ZF-8953
-     */
+    #[Group('ZF-8953')]
     public function testFluentInterface()
     {
         $writer   = new Zend_Log_Writer_Syslog();
@@ -95,19 +89,15 @@ class Zend_Log_Writer_SyslogTest extends PHPUnit\Framework\TestCase
         $this->assertInstanceOf(Zend_Log_Writer_Syslog::class, $instance);
     }
 
-    /**
-     * @group ZF-10769
-     */
+    #[Group('ZF-10769')]
     public function testPastFacilityViaConstructor()
     {
         $writer = new WriterSyslogCustom(array('facility' => LOG_USER));
         $this->assertEquals(LOG_USER, $writer->getFacility());
     }
 
-    /**
-     * @group ZF-8382
-     * @doesNotPerformAssertions
-     */
+    #[Group('ZF-8382')]
+    #[DoesNotPerformAssertions]
     public function testWriteWithFormatter()
     {
         $event = array(
